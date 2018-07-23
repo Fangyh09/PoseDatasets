@@ -6,17 +6,10 @@ from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 from __future__ import unicode_literals
-# import pudb; pu.db
-import os
 from scipy.io import loadmat
-from img_filter import ok
 
 import json
 import numpy as np
-import torch
-import cv2
-
-PERSON_NUM = 10
 
 
 def fix_wrong_joints(joint):
@@ -32,27 +25,16 @@ def fix_wrong_joints(joint):
 
 
 def save_joints():
-    joint_data_fn = 'data/mpii/data.json'
+    joint_data_fn = 'data.json'
     mat = loadmat('data/mpii/mpii_human_pose_v1_u12_1.mat')
-    mpii_images =  "data/mpii/images"
-    all_ok_img = []
-    all_ok_idx = []
-    fp = open(joint_data_fn, 'w')
 
-    filter_num = 0
-    save_num = 0
+    fp = open(joint_data_fn, 'w')
 
     for i, (anno, train_flag) in enumerate(
         zip(mat['RELEASE']['annolist'][0, 0][0],
             mat['RELEASE']['img_train'][0, 0][0])):
-        img_fn = anno['image']['name'][0, 0][0]
-        img_path = os.path.join(mpii_images, img_fn)
-        if not os.path.exists(img_path):
-            print("error, not exist", img_path)
-            continue
-        img = cv2.imread(img_path)
-        height, width, _ = img.shape
 
+        img_fn = anno['image']['name'][0, 0][0]
         train_flag = int(train_flag)
 
         head_rect = []
@@ -64,14 +46,11 @@ def save_joints():
                 [y2[0, 0] for y2 in anno['annorect']['y2'][0]])
 
         if 'annopoints' in str(anno['annorect'].dtype):
-            # only one person
             annopoints = anno['annorect']['annopoints'][0]
             head_x1s = anno['annorect']['x1'][0]
             head_y1s = anno['annorect']['y1'][0]
             head_x2s = anno['annorect']['x2'][0]
             head_y2s = anno['annorect']['y2'][0]
-            status_ok = True
-            ok_nums = 0
             for annopoint, head_x1, head_y1, head_x2, head_y2 in zip(
                     annopoints, head_x1s, head_y1s, head_x2s, head_y2s):
                 if annopoint != []:
@@ -79,10 +58,6 @@ def save_joints():
                                  float(head_y1[0, 0]),
                                  float(head_x2[0, 0]),
                                  float(head_y2[0, 0])]
-                    # build feed_dict
-                    feed_dict = {}
-                    feed_dict['width'] = width
-                    feed_dict['height'] = height
 
                     # joint coordinates
                     annopoint = annopoint['point'][0, 0]
@@ -102,10 +77,6 @@ def save_joints():
                                     for k, v in zip(j_id, vis)])
                     else:
                         vis = None
-                    feed_dict['x'] = x
-                    feed_dict['y'] = y
-                    feed_dict['vis'] = vis
-                    feed_dict['filename'] = img_fn
 
                     if len(joint_pos) == 16:
                         data = {
@@ -117,25 +88,6 @@ def save_joints():
                         }
 
                         print(json.dumps(data), file=fp)
-                    if not ok(feed_dict):
-                        status_ok = False
-                        break
-                    else:
-                        ok_nums += 1
-            if status_ok and ok_nums < PERSON_NUM:
-                all_ok_img.append(img_fn)
-                all_ok_idx.append(i)
-                save_num += 1
-            else:
-                print("filtered", img_fn)
-                print("{}/{}".format(save_num, i + 1))
-                filter_num += 1
-
-    save_name = "mpii-filter.save"
-    print("torch save", save_name)
-    print("save num={}, filter num={}".format(save_num, filter_num))
-    torch.save({'filenames': all_ok_img
-                , 'idxs': all_ok_idx}, save_name)
 
 
 def write_line(datum, fp):
