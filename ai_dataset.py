@@ -9,7 +9,6 @@ import torch
 
 from img_filter import *
 
-PERSON_NUM = 10
 
 image_set = "train"
 root = "data/ai_challenger_keypoint"

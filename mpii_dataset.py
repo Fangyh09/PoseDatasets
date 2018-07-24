@@ -20,8 +20,6 @@ from scipy.io import loadmat
 
 from img_filter import *
 
-PERSON_NUM = 10
-
 
 def fix_wrong_joints(joint):
     if '12' in joint and '13' in joint and '2' in joint and '3' in joint:
