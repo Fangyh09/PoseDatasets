@@ -1,9 +1,13 @@
-import json
+"""
+@author: fangyh09
+"""
+
 import os
+
 import cv2
-import numpy as np
-from img_filter import *
 import torch
+
+from img_filter import *
 
 PERSON_NUM = 10
 
@@ -29,7 +33,6 @@ all_ok_idx = []
 save_num = 0
 filter_num = 0
 
-# data = data[:100]
 cnt = 0
 for img in data:
     image_id = img['image_id']
@@ -71,7 +74,6 @@ for img in data:
         filter_num += 1
     cnt += 1
 
-
 save_name = "ai-filter-pn={}-kn={}-wr={}-hr={}.save".format(PERSON_NUM,
                                                               KEYPOINT_NUM,
                                                               WIDTH_RATIO,HEIGHT_RATIO
@@ -79,8 +81,3 @@ save_name = "ai-filter-pn={}-kn={}-wr={}-hr={}.save".format(PERSON_NUM,
 print("torch save", save_name)
 print("save num={}, filter num={}".format(save_num, filter_num))
 torch.save({'filenames': all_ok_img}, save_name)
-
-
-
-
-# print(data.keu)

@@ -1,20 +1,24 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # Copyright (c) 2016 Shunta Saito
+"""
+@author: fangyh09
+"""
 
 from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 from __future__ import unicode_literals
-# import pudb; pu.db
-import os
-from scipy.io import loadmat
-from img_filter import *
 
 import json
-import numpy as np
-import torch
+# import pudb; pu.db
+import os
+
 import cv2
+import torch
+from scipy.io import loadmat
+
+from img_filter import *
 
 PERSON_NUM = 10
 

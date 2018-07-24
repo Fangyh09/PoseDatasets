@@ -1,22 +1,26 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # Copyright (c) 2016 Shunta Saito
+"""
+@author: fangyh09
+"""
 
 from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 from __future__ import unicode_literals
-# import pudb; pu.db
-from os.path import basename as b
-from scipy.io import loadmat
-from img_filter import *
 
 import argparse
 import glob
-import numpy as np
 import re
+# import pudb; pu.db
+from os.path import basename as b
+
 import cv2
 import torch
+from scipy.io import loadmat
+
+from img_filter import *
 
 if __name__ == '__main__':
     # to fix test set
@@ -78,7 +82,6 @@ if __name__ == '__main__':
     fp_train.close()
     fp_test.close()
 
-    # save_name = "lsp-filter.save"
     save_name = "lspext-filter-pn={}-kn={}-wr={}-hr={}.save".format(PERSON_NUM,
                                                                   KEYPOINT_NUM,
                                                                   WIDTH_RATIO,

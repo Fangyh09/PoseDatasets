@@ -1,8 +1,13 @@
+"""
+@author: fangyh09
+"""
+
 import os
+
 import cv2
-import numpy as np
-from img_filter import *
 import torch
+
+from img_filter import *
 
 COCO_ROOT = 'data/coco/'
 IMAGES = 'images'
@@ -16,8 +21,6 @@ coco =  COCO(os.path.join(COCO_ROOT, ANNOTATIONS, KEYPOINTS_SET.format(image_set
 IMAGE_PATH = os.path.join(COCO_ROOT, "images", image_set)
 
 imgids = coco.getImgIds()
-# todo
-# imgids = imgids[:2]
 
 all_ok_img = []
 all_ok_idx = []
@@ -72,12 +75,6 @@ for img_id in imgids:
         filter_num += 1
 
     cnt += 1
-
-
-# KEYPOINT_NUM = 10
-# WIDTH_RATIO = 0.2
-# HEIGHT_RATIO = 0.3
-# PERSON_NUM = 10
 
 save_name = "coco-filter-pn={}-kn={}-wr={}-hr={}.save".format(PERSON_NUM,
                                                               KEYPOINT_NUM,
