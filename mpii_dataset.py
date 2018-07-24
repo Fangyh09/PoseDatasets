@@ -9,7 +9,7 @@ from __future__ import unicode_literals
 # import pudb; pu.db
 import os
 from scipy.io import loadmat
-from img_filter import ok
+from img_filter import *
 
 import json
 import numpy as np
@@ -131,7 +131,12 @@ def save_joints():
                 print("{}/{}".format(save_num, i + 1))
                 filter_num += 1
 
-    save_name = "mpii-filter.save"
+    # save_name = "mpii-filter.save"
+    save_name = "mpii-filter-pn={}-kn={}-wr={}-hr={}.save".format(PERSON_NUM,
+                                                                  KEYPOINT_NUM,
+                                                                  WIDTH_RATIO,
+                                                                  HEIGHT_RATIO
+                                                                  )
     print("torch save", save_name)
     print("save num={}, filter num={}".format(save_num, filter_num))
     torch.save({'filenames': all_ok_img

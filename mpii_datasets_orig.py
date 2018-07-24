@@ -103,10 +103,10 @@ def write_line(datum, fp):
 
 
 def split_train_test():
-    # fp_test = open('data/mpii/test_joints.csv', 'w')
-    # fp_train = open('data/mpii/train_joints.csv', 'w')
-    fp_test = open('test_joints.csv', 'w')
-    fp_train = open('train_joints.csv', 'w')
+    fp_test = open('data/mpii/test_joints.csv', 'w')
+    fp_train = open('data/mpii/train_joints.csv', 'w')
+    # fp_test = open('test_joints.csv', 'w')
+    # fp_train = open('train_joints.csv', 'w')
     all_data = open('data/mpii/data.json').readlines()
     N = len(all_data)
     N_test = int(N * 0.1)

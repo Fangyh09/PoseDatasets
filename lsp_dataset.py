@@ -9,7 +9,7 @@ from __future__ import unicode_literals
 # import pudb; pu.db
 from os.path import basename as b
 from scipy.io import loadmat
-from img_filter import ok
+from img_filter import *
 
 import argparse
 import glob
@@ -78,7 +78,12 @@ if __name__ == '__main__':
     fp_train.close()
     fp_test.close()
 
-    save_name = "lsp-filter.save"
+    # save_name = "lsp-filter.save"
+    save_name = "lspext-filter-pn={}-kn={}-wr={}-hr={}.save".format(PERSON_NUM,
+                                                                  KEYPOINT_NUM,
+                                                                  WIDTH_RATIO,
+                                                                  HEIGHT_RATIO
+                                                                  )
     print("torch save", save_name)
     print("save num={}, filter num={}".format(save_num, filter_num))
     torch.save({'filenames': all_ok_img }, save_name)

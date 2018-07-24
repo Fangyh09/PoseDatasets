@@ -1,8 +1,9 @@
 import numpy as np
 
-PERSON_POSE_NUM = 5
+KEYPOINT_NUM = 10
 WIDTH_RATIO = 0.2
 HEIGHT_RATIO = 0.3
+PERSON_NUM = 10
 
 
 def ok(feed_dict):
@@ -34,8 +35,8 @@ def ok(feed_dict):
     y = np.array(y)
     # protocol 1
     if vis is not None:
-        person_pose_num = np.sum(vis)
-        if person_pose_num < PERSON_POSE_NUM:
+        keypoint_num = np.sum(vis > 0)
+        if keypoint_num < KEYPOINT_NUM:
             return False
     # protocol 2
     assert (vis is not None)

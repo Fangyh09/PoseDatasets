@@ -5,3 +5,10 @@
 
 
 ![](https://ws4.sinaimg.cn/large/006tKfTcly1ftk9cs8sfcj31kw08jn11.jpg)
+
+
+## AI challenge 数据格式
+![](https://ws3.sinaimg.cn/large/006tKfTcly1ftkrfpxasrj30u40nygq2.jpg)
+
+## 注意⚠️
+在处理的时候判断是 vis > 0
