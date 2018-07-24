@@ -83,9 +83,3 @@ save_name = "coco-filter-pn={}-kn={}-wr={}-hr={}.save".format(PERSON_NUM,
 print("torch save", save_name)
 print("save num={}, filter num={}".format(save_num, filter_num))
 torch.save({'filenames': all_ok_img}, save_name)
-
-
-
-
-
-

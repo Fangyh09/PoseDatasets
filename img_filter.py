@@ -55,18 +55,3 @@ def ok(feed_dict):
     if bbox_height < HEIGHT_RATIO * height:
         return False
     return True
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
