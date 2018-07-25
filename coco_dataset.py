@@ -14,7 +14,7 @@ IMAGES = 'images'
 ANNOTATIONS = 'annotations'
 COCO_API = 'PythonAPI'
 KEYPOINTS_SET = 'person_keypoints_{}.json'
-image_set = 'train2014'
+image_set = 'val2014'
 
 from pycocotools.coco import COCO
 coco =  COCO(os.path.join(COCO_ROOT, ANNOTATIONS, KEYPOINTS_SET.format(image_set)))
@@ -60,7 +60,7 @@ for img_id in imgids:
         feed_dict['width'] = width
         feed_dict['height'] = height
 
-        if ok(feed_dict):
+        if ok(feed_dict) and num_keypoints > 0:
             ok_nums += 1
         else:
             status_ok = False
@@ -69,6 +69,7 @@ for img_id in imgids:
         save_num += 1
         assert img_name != ""
         all_ok_img.append(img_name)
+        all_ok_idx.append(img_id)
     else:
         print("filtered", img_name)
         print("{}/{}".format(save_num, cnt + 1))
@@ -76,10 +77,12 @@ for img_id in imgids:
 
     cnt += 1
 
-save_name = "coco-filter-pn={}-kn={}-wr={}-hr={}.save".format(PERSON_NUM,
-                                                              KEYPOINT_NUM,
-                                                              WIDTH_RATIO,HEIGHT_RATIO
-                                                              )
+save_name = "coco-filter-pn={}-kn={}-wr={}-hr={}-save_num={}.save".format(
+    PERSON_NUM,
+    KEYPOINT_NUM,
+    WIDTH_RATIO, HEIGHT_RATIO,
+    save_num
+    )
 print("torch save", save_name)
 print("save num={}, filter num={}".format(save_num, filter_num))
-torch.save({'filenames': all_ok_img}, save_name)
+torch.save({'filenames': all_ok_img, 'idxs': all_ok_idx}, save_name)

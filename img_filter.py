@@ -4,11 +4,25 @@
 
 import numpy as np
 
-KEYPOINT_NUM = 10
-WIDTH_RATIO = 0.2
-HEIGHT_RATIO = 0.3
-PERSON_NUM = 10
+# KEYPOINT_NUM = 10
+# WIDTH_RATIO = 0.2
+# HEIGHT_RATIO = 0.3
+# PERSON_NUM = 10
+filter_configs = {
+    "c1": [10, 10, 0.2, 0.3],
+    "c2": [10, 13, 0.2, 0.3],
+    "c3": [5, 10, 0.2, 0.3],
+    "c4": [5, 8, 0.2, 0.3],
+    "c5": [8, 10, 0.05, 0.1],
+    "c6": [8, 8, 0.1, 0.15],
+    "c7": [8, 8, 0.3, 0.6]
+}
 
+mode = "c7"
+PERSON_NUM = filter_configs[mode][0]
+KEYPOINT_NUM = filter_configs[mode][1]
+WIDTH_RATIO = filter_configs[mode][2]
+HEIGHT_RATIO = filter_configs[mode][3]
 
 def ok(feed_dict):
     """
