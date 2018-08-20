@@ -35,5 +35,6 @@ You can use different mode or self-designed mode in `img_filter.py`
 
 ## AI challenge data format
 <img src="https://ws3.sinaimg.cn/large/006tKfTcly1ftkrfpxasrj30u40nygq2.jpg" width="600">
+
 ## Attention⚠️
 when judge vis > 0
